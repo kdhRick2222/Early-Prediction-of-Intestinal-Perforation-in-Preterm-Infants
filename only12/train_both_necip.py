@@ -32,10 +32,10 @@ def get_clf_eval(y_test, pred):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default="/home/daehyun/KNN/only12/KNNdata_only12.csv")
-    parser.add_argument('--outputs-dir', type=str, default="/home/daehyun/KNN/only12/sgd_weight")
-    parser.add_argument('--lr', type=float, default=1e-3)
-    parser.add_argument('--batch-size', type=int, default=64)
+    parser.add_argument('--data', type=str, default="./KNN_final/only12/KNNdata_only12.csv")
+    parser.add_argument('--outputs-dir', type=str, default="./KNN_final/only12/weight_rev")
+    parser.add_argument('--lr', type=float, default=1e-4)
+    parser.add_argument('--batch-size', type=int, default=128)
     parser.add_argument('--num-epochs', type=int, default=500)
     parser.add_argument('--num-workers', type=int, default=1)
     args = parser.parse_args()
