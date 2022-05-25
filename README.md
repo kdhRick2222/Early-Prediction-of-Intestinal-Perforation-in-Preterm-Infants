@@ -1,9 +1,9 @@
 # KNN_code
 
 ## 1. Codes
-### Codes for training          -> only12
-### Codes for training results  -> roc_curve_12
-### Codes for test              -> test_results
+### Codes for training          -> ./only12
+### Codes for training results  -> ./roc_curve_12
+### Codes for test              -> ./test_results
 
 
 ## 2. ROC for validation
