@@ -1,7 +1,7 @@
 # KNN_code
 
 ### Notice
-### DataSet is not available.
+#### DataSet is not available.
 
 ## 1. Codes
 ### Codes for training          -> ./only12
