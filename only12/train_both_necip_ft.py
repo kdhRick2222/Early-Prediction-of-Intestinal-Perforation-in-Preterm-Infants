@@ -34,11 +34,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, default="/home/daehyun/KNN_final/only12/final_knn_dataset.csv")
     parser.add_argument('--outputs-dir', type=str, default="/home/daehyun/KNN_final/only12/weight_revision")
-    parser.add_argument('--lr', type=float, default=1e-3)
-    parser.add_argument('--lr2', type=float, default=5e-5)
-    parser.add_argument('--batch-size', type=int, default=64)
-    parser.add_argument('--limit', type=float, default=0.878)#8486
-    # parser.add_argument('--limit', type=float, default=0.868)#8486
+    parser.add_argument('--lr', type=float, default=1e-4)
+    parser.add_argument('--lr2', type=float, default=1e-4)
+    parser.add_argument('--batch-size', type=int, default=128)
+    parser.add_argument('--limit', type=float, default=0.878)
     parser.add_argument('--num-epochs', type=int, default=500)
     parser.add_argument('--num-workers', type=int, default=1)
     args = parser.parse_args()
@@ -126,10 +125,6 @@ if __name__ == '__main__':
             loss = loss1 + loss2
             
             optimizer.zero_grad()
-            # if epoch < 24:
-            #     loss.backward()
-            # else:
-            #     (0.1*loss).backward()
             loss.backward()
             optimizer.step()
 
@@ -288,33 +283,14 @@ if __name__ == '__main__':
 
         print("EPOCH : {0:3d}  ntety_loss : {1:0.4f}  AUC_ntet : {2:0.4f}  AUC_ntety : {3:0.4f}, ppv(ntety) : {4:0.4f}, npv(ntety) : {5:0.4f}, sensitivity : {6:0.4f}"
         .format(epoch, ntety_loss, auc_ntet, auc_ntety, ppv, npv, sensitivity))
-        
-        # if epoch > 20:
-        #     early_stopping(1-auc_ntet, model)
-            
-        #     if min_loss > 1-auc_ntet:
-        #         min_loss = 1-auc_ntet
-
-        # if early_stopping.early_stop:
-        #     print('stop!')
-        #     print('minimun loss is ', min_loss)
-        #     break
 
         if limit < auc_ntety:
-            # for para in model.parameters():
-            #     para.requires_grad = False
-    
-            # for name, param in model.named_parameters():
-            #     if name in ['linear_b1.weight', 'linear_b1.bias', 'linear_b2.weight', 'linear_b2.bias', 'linear_b3.weight', 'linear_b3.bias', 
-            #     'linear_b4.weight', 'linear_b4.bias', 'linear_b5.weight', 'linear_b5.bias',]:
-            #         param.requires_grad = True
             break
 
 
     for epoch in range(args.num_epochs):
 
         model.train()
-        # optimizer = optim.Adam(model.parameters(), lr=1e-3)
         optimizer = optim.SGD(model.parameters(), lr=lr2, momentum=0.9)
 
         loss_sum1 = 0
@@ -330,10 +306,6 @@ if __name__ == '__main__':
 
             labels1 = labels1_.unsqueeze(1)
             labels2 = labels2_.unsqueeze(1)
-
-
-            #input_ = torch.cat((inputs[:, :50], inputs[:, 53:54]), dim=1)
-            #print(input_)
             
             ntet, ntety = model(inputs)
 
@@ -342,10 +314,6 @@ if __name__ == '__main__':
             loss = loss2+loss1
             
             optimizer.zero_grad()
-            # if epoch < 24:
-            #     loss.backward()
-            # else:
-            #     (0.1*loss).backward()
             loss.backward()
             optimizer.step()
 
@@ -373,8 +341,6 @@ if __name__ == '__main__':
             inputs = inputs.to(device)
             labels1_ = labels1_.to(device)
             labels2_ = labels2_.to(device)
-
-            #input_ = torch.cat((inputs[:, :50], inputs[:, 53:54]), dim=1)
 
             with torch.no_grad():
                 ntet, ntety = model(inputs)
@@ -425,8 +391,6 @@ if __name__ == '__main__':
             inputs = inputs.to(device)
             labels1_ = labels1_.to(device)
             labels2_ = labels2_.to(device)
-
-            #input_ = torch.cat((inputs[:, :50], inputs[:, 53:54]), dim=1)
 
             with torch.no_grad():
                 ntet, ntety = model(inputs)
@@ -488,7 +452,6 @@ if __name__ == '__main__':
 
         fpr, tpr, thresholds = roc_curve(label_, predict2)
         J = tpr - fpr
-        # J = sqrt(tpr * (1-fpr))
         ix = argmax(J)
 
         best_threshold = thresholds[ix]
@@ -515,6 +478,4 @@ if __name__ == '__main__':
             print('stop!')
             print('minimun loss is ', min_loss)
             break
-#plt.plot([], [])
-#plt.show()    
 
