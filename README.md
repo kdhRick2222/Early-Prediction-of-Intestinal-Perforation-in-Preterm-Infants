@@ -22,7 +22,7 @@
 ![Alt text](./test_results/roc/57nec_roc_curve.png)
 
 ### NEC-IP
-![Alt text](./roc_curve_12/roc/57necip_roc_curve.png)
+![Alt text](./test_results/roc/57necip_roc_curve.png)
 
 ### SIP
-![Alt text](./roc_curve_12/roc/57sip_roc_curve.png)
+![Alt text](./test_results/roc/57sip_roc_curve.png)
