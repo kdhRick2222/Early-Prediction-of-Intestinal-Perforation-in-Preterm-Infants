@@ -1,5 +1,8 @@
 # KNN_code
 
+### Notice
+### DataSet is not available.
+
 ## 1. Codes
 ### Codes for training          -> ./only12
 ### Codes for training results  -> ./roc_curve_12
